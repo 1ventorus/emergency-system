@@ -100,14 +100,14 @@ apps=("""
  |      -store                        |                                    |
  |                                    |                                    |
  | apps :                             | jeux :                             |
- |      -operaGX                      |       -life evol                   |
- |      -spotify                      |       -nuclear ingenior (ni)       |
- |      -vscode                       |       -portal                      |
- |      -solidworks                   |       -plague inc                  |
- |      -educadhoc                    |       -tetris                      |
- |      -lelivrescolaire              |       -                            |
- |      -libmanuels                   |       -                            |
- |      -canva                        |       -                            |
+ |      -                             |       -life evol                   |
+ |      -                             |       -nuclear ingenior (ni)       |
+ |      -                             |       -                            |
+ |      -                             |       -                            |
+ |      -                             |       -                            |
+ |      -                             |       -                            |
+ |      -                             |       -                            |
+ |      -                             |       -                            |
  |_________________________________________________________________________|
  
  """)
@@ -447,78 +447,43 @@ while True:
         print(BANNER)
         print(apps)
 
-    elif command =="vscode":
-        hall()
-        local=os.getcwd()
-        os.chdir("C:")
-        os.chdir(r"C:\Program Files\vs code\Microsoft VS Code")
-        os.system("Code.exe -e")
-        os.chdir(local)
-        hall()
+    elif os.path.exists(r"C:\Program Files\vs code\Microsoft VS Code"):
+        if command =="vscode":
+            hall()
+            local=os.getcwd()
+            os.chdir("C:")
+            os.chdir(r"C:\Program Files\vs code\Microsoft VS Code")
+            os.system("Code.exe -e")
+            os.chdir(local)
+            hall()
 
-    elif command =="powerpoint":
-        hall()
-        local=os.getcwd()
-        os.chdir("C:")
-        os.chdir(r"C:\Program Files\Microsoft Office\root\Office16")
-        os.system("POWERPNT.EXE")
-        os.chdir(local)
-        hall()
+    elif os.path.exists(r"C:\Program Files\Microsoft Office"):
+        if command =="powerpoint":
+            hall()
+            local=os.getcwd()
+            os.chdir("C:")
+            os.chdir(r"C:\Program Files\Microsoft Office\root\Office16")
+            os.system("POWERPNT.EXE")
+            os.chdir(local)
+            hall()
 
-    elif command =="word":
-        hall()
-        local=os.getcwd()
-        os.chdir("C:")
-        os.chdir(r"C:\Program Files\Microsoft Office\root\Office16")
-        os.system("WINWORD.EXE")
-        os.chdir(local)
-        hall()
+        elif command =="word":
+            hall()
+            local=os.getcwd()
+            os.chdir("C:")
+            os.chdir(r"C:\Program Files\Microsoft Office\root\Office16")
+            os.system("WINWORD.EXE")
+            os.chdir(local)
+            hall()
 
-    elif command =="excel":
-        hall()
-        local=os.getcwd()
-        os.chdir("C:")
-        os.chdir(r"C:\Program Files\Microsoft Office\root\Office16")
-        os.system("EXCEL.EXE")
-        os.chdir(local)
-        hall()
-
-    elif command =="operaGX":
-        hall()
-        local=os.getcwd()
-        os.chdir("C:")
-        os.chdir(r"C:\Users\Eleve\AppData\Local\Programs\Opera GX")
-        os.system("launcher.exe")
-        os.chdir(local)
-        hall()
-
-    elif command =="portal":
-        hall()
-        local=os.getcwd()
-        os.chdir("E:")
-        os.chdir(r"E:\test\Nouveau dossier\portal\Portal\Portal")
-        os.system("Portal.exe -e")
-        os.chdir(local)
-        hall()
-
-
-    elif command =="tetris":
-        hall()
-        local=os.getcwd()
-        os.chdir("E:")
-        os.chdir(r"E:\test\Nouveau dossier\tetris\Tetris")
-        os.system("tetris.exe -e")
-        os.chdir(local)
-        hall()
-
-    elif command =="plague inc":
-        hall()
-        local=os.getcwd()
-        os.chdir("E:")
-        os.chdir(r"E:\test\Nouveau dossier\plague inc")
-        os.system("PlagueIncEvolved.exe -e")
-        os.chdir(local)
-        hall()
+        elif command =="excel":
+            hall()
+            local=os.getcwd()
+            os.chdir("C:")
+            os.chdir(r"C:\Program Files\Microsoft Office\root\Office16")
+            os.system("EXCEL.EXE")
+            os.chdir(local)
+            hall()
 
     elif command =="educadhoc":
         hall()
@@ -528,11 +493,6 @@ while True:
         os.system("educadhoc.exe")
         os.chdir(local)
         hall()
-                
-    elif command =="spotify":
-        hall()
-        print("spotify n'est pas accessible")
-        pass
 
     elif command =="cmd":
         hall()

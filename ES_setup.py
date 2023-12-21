@@ -47,6 +47,7 @@ def install():
     fetch_file("https://raw.githubusercontent.com/1ventorus/emergency-system/main/launcher.py", "launcher.py")
     os.mkdir(os.path.join(locat, "test"))
     os.chdir("test")
+    fetch_file("https://raw.githubusercontent.com/1ventorus/emergency-system/main/test/ES.py", "ES.py")
     location=os.getcwd()
     os.mkdir(os.path.join(location, "sys_apps"))
     os.chdir("sys_apps")

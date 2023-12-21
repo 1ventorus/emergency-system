@@ -28,6 +28,5 @@ def maj():
     fetch_file("https://raw.githubusercontent.com/1ventorus/emergency-system/main/test/sys_apps/store.py", "store.py")
     fetch_file("https://raw.githubusercontent.com/1ventorus/emergency-system/main/test/sys_apps/file_manager.py", "file_manager.py")
     fetch_file("https://raw.githubusercontent.com/1ventorus/emergency-system/main/test/sys_apps/maj.py", "maj.py")
-    os.system("python maj.py")
 
 maj()

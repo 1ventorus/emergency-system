@@ -55,7 +55,7 @@ def create_user_directory(user, password):
         print("cmd.py copié avec succès.")
         shutil.copy(os.path.join(local1, "test", "sys_apps", "store.py"), sys_apps_path)
         print("store.py copié avec succès.")
-        shutil.copy(os.path.join(local1, "test", "sys_appas", "file_manager.py"), sys_apps_path)
+        shutil.copy(os.path.join(local1, "test", "sys_apps", "file_manager.py"), sys_apps_path)
         print("file_manager.py copié avec succès.")
         shutil.copy(os.path.join(local1, "test", "sys_apps", "maj.py"), sys_apps_path)
         print("maj.py copié avec succès.")

@@ -1,4 +1,3 @@
-
 import os
 import time
 import platform
@@ -82,3 +81,6 @@ while True:
             install()
         else:
             print("vous posséder déjà ES")
+    elif launch=="n":
+        os.system(clear)
+        break

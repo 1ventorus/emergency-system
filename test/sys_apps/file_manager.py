@@ -10,7 +10,7 @@ if system=="Windows":
     directory="dir"
 elif system =="Linux":
     clear ="clear"
-    directory="dir ls"
+    directory="ls"
 else:
     clear ="erreur"
 

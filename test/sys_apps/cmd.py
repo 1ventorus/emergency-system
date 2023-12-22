@@ -1,19 +1,29 @@
+from colorama import*
+
 import os
 import platform
+
 
 system = platform.system()
 if system=="Windows":
     clear="cls"
+    directory="dir"
+    ver=("windows version 0.10.1")
 elif system =="Linux":
     clear ="clear"
+    directory="dir ls"
+    ver=("linux version 0.10.1")
 else:
     clear ="erreur"
 
+couleur = Fore.GREEN
+command_colors = Fore.RED
+
 def hall():
     os.system(clear)
-    print("ES version 0.10")
-    print("license x-storm group")
-    print("pour se deplacer faire 'ch' au lieu de 'cd'")
+    print(couleur)
+    print(ver)
+    print("")
 
 
 linux_command=("""
@@ -47,7 +57,7 @@ else:
 
 hall()
 while True:
-    command=input(entry)
+    command=input(command_colors + entry)
 
     if command =="close":
         os.system(clear)

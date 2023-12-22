@@ -447,18 +447,24 @@ while True:
         print(BANNER)
         print(apps)
 
-    elif os.path.exists(r"C:\Program Files\vs code\Microsoft VS Code"):
-        if command =="vscode":
+    # extinction systeme
+    elif command =="close":
+        save_config()
+        os.system(clear)
+        break
+
+    elif command =="vs code":
+        if os.path.exists(r"C:\Program Files\vs code\Microsoft VS Code"):
             hall()
             local=os.getcwd()
             os.chdir("C:")
             os.chdir(r"C:\Program Files\vs code\Microsoft VS Code")
-            os.system("Code.exe -e")
+            os.system("Code.exe")
             os.chdir(local)
             hall()
 
-    elif os.path.exists(r"C:\Program Files\Microsoft Office"):
-        if command =="powerpoint":
+    elif command =="powerpoint":
+        if os.path.exists(r"C:\Program Files\Microsoft Office\root\Office16"):
             hall()
             local=os.getcwd()
             os.chdir("C:")
@@ -467,7 +473,8 @@ while True:
             os.chdir(local)
             hall()
 
-        elif command =="word":
+    elif command =="word":
+        if os.path.exists(r"C:\Program Files\Microsoft Office\root\Office16"):
             hall()
             local=os.getcwd()
             os.chdir("C:")
@@ -476,23 +483,25 @@ while True:
             os.chdir(local)
             hall()
 
-        elif command =="excel":
-            hall()
-            local=os.getcwd()
-            os.chdir("C:")
-            os.chdir(r"C:\Program Files\Microsoft Office\root\Office16")
-            os.system("EXCEL.EXE")
-            os.chdir(local)
-            hall()
+    elif command =="excel":
+        if os.path.exists(r"C:\Program Files\Microsoft Office\root\Office16"):
+                hall()
+                local=os.getcwd()
+                os.chdir("C:")
+                os.chdir(r"C:\Program Files\Microsoft Office\root\Office16")
+                os.system("EXCEL.EXE")
+                os.chdir(local)
+                hall()
 
     elif command =="educadhoc":
-        hall()
-        local=os.getcwd()
-        os.chdir("E:")
-        os.chdir(r"E:\livres\math\educadhoc")
-        os.system("educadhoc.exe")
-        os.chdir(local)
-        hall()
+        if os.path.exists(r"E:\livres\math\educadhoc"):
+            hall()
+            local=os.getcwd()
+            os.chdir("E:")
+            os.chdir(r"E:\livres\math\educadhoc")
+            os.system("educadhoc.exe")
+            os.chdir(local)
+            hall()
 
     elif command =="cmd":
         hall()
@@ -631,15 +640,9 @@ while True:
             print(f"Le répertoire '{path}' n'existe pas.")
         except Exception as e:
             print(f"Erreur lors du changement de répertoire : {e}")
-        
-        # extinction systeme
-    elif command =="close":
-        save_config()
-        os.system(clear)
-        break
 
         # commande de cmd
-    elif command == command:
+    else:
         hall()
         print(command_colors + "\n>>> " + command + "\n")
         os.system(command)

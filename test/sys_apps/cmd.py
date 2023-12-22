@@ -11,7 +11,7 @@ if system=="Windows":
     ver=("windows version 0.10.1")
 elif system =="Linux":
     clear ="clear"
-    directory="dir ls"
+    directory="ls"
     ver=("linux version 0.10.1")
 else:
     clear ="erreur"

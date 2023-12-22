@@ -1,5 +1,8 @@
+from colorama import*
+
 import os
 import platform
+
 
 system = platform.system()
 if system=="Windows":
@@ -11,8 +14,11 @@ elif system =="Linux":
 else:
     clear ="erreur"
 
+couleur = Fore.GREEN
+command_colors = Fore.RED
 
 def hall():
+    print(couleur)
     os.system(clear)
     print("pour se deplacer faire 'ch' au lieu de 'cd'")
     os.system(directory)
@@ -49,7 +55,7 @@ else:
 
 hall()
 while True:
-    command=input(entry)
+    command=input(command_colors + entry)
 
     if command =="close":
         os.system(clear)

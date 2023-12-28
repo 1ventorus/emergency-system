@@ -23,16 +23,17 @@ BANNER =("""
  """)
 
 system = platform.system()
-if system=="Windows":
-    clear="cls"
-elif system =="Linux":
-    clear ="clear"
+if system == "Windows":
+    clear = "cls"
+elif system == "Linux":
+    clear = "clear"
 else:
-    clear ="erreur"
+    clear = "erreur"
 
 couleur = Fore.GREEN
 command_colors = Fore.RED
-local=os.getcwd()
+local = os.getcwd()
+
 def hall():
     os.system(clear)
     print(couleur + BANNER)
@@ -40,10 +41,10 @@ def hall():
 def create_user_directory(user, password):
     local1 = os.getcwd()
     user_path = os.path.join(local1, user)
-    
+
     if not os.path.exists(user_path):
         os.mkdir(user_path)
-        
+
         # Copier ES.py dans le répertoire de l'utilisateur
         shutil.copy(os.path.join(local1, "test", "ES.py"), user_path)
         print("ES.py copié avec succès.")
@@ -72,44 +73,44 @@ def create_user_directory(user, password):
         print("Logs.txt créé avec succès.")
 
 def launch():
-    load=1
-    if load !=5:
-            load =+1
-            os.system(clear)
-            print("chargement")
-            time.sleep(0.5)
-            os.system(clear)
-            print("chargement.")
-            time.sleep(0.5)
-            os.system(clear)
-            print("chargement..")
-            time.sleep(0.5)
-            os.system(clear)
-            print("chargement...")
-            time.sleep(0.5)
-    load =-4
+    load = 1
+    if load != 5:
+        load =+ 1
+        os.system(clear)
+        print("chargement")
+        time.sleep(0.5)
+        os.system(clear)
+        print("chargement.")
+        time.sleep(0.5)
+        os.system(clear)
+        print("chargement..")
+        time.sleep(0.5)
+        os.system(clear)
+        print("chargement...")
+        time.sleep(0.5)
+    load = -4
 
 def loading():
     launch()
     os.system(clear)
 
 def close():
-    load3=1
-    if load3 !=5:
-            load =+1
-            os.system(clear)
-            print("fermeture")
-            time.sleep(0.5)
-            os.system(clear)
-            print("fermeture.")
-            time.sleep(0.5)
-            os.system(clear)
-            print("fermeture..")
-            time.sleep(0.5)
-            os.system(clear)
-            print("fermeture...")
-            time.sleep(0.5)
-    load3 =-4
+    load3 = 1
+    if load3 != 5:
+        load =+ 1
+        os.system(clear)
+        print("fermeture")
+        time.sleep(0.5)
+        os.system(clear)
+        print("fermeture.")
+        time.sleep(0.5)
+        os.system(clear)
+        print("fermeture..")
+        time.sleep(0.5)
+        os.system(clear)
+        print("fermeture...")
+        time.sleep(0.5)
+    load3 = -4
 
 def closing():
     close()

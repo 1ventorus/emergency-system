@@ -528,7 +528,7 @@ while True:
         local=os.getcwd()
         os.chdir(location)
         os.chdir(r"programs\tool\toolbox")
-        if os.path.exists(r"programs\tool\toolbox\toolbox_w.py"):
+        if os.path.exists(r"programs\tool\toolbox\toolbox_win.py"):
             os.system("python toolbox_win.py")
         else:
             if os.path.exists(r"programs\tool\toolbox\toolbox_setup.py"):

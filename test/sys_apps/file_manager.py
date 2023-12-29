@@ -22,10 +22,32 @@ linux_command = ("""
 win_command = os.getcwd() + ">>>"
 direct = os.getcwd()
 
-entry = linux_command
+with open("save_local.txt", "r") as local:
+    locat = local.read()
+    loc = locat.splitlines()
+    cd = loc[0]
+
+loc_save = cd + "system\save_config.txt"
+
+if os.path.exists(loc_save):
+    with open(loc_save, "r") as file:
+        info = file.read()
+        savelist = info.splitlines()
+        entry_save = savelist[0]
+
+        if entry_save == ">>>":
+            entry = ">>>"
+
+        elif entry_save == "lin":
+            entry = linux_command
+
+        elif entry_save == "win":
+            entry = win_command
+else:
+    entry = linux_command
 
 def convert_bytes(num, suffix='o'):
-    for unit in ['',' K',' M',' G',' T',' P',' E',' Z']:
+    for unit in [' ',' K',' M',' G',' T',' P',' E',' Z']:
         if abs(num) < 1024.0:
             return "%3.1f%s%s" % (num, unit, suffix)
         num /= 1024.0
@@ -78,10 +100,14 @@ def hall():
     os.system(clear)
     print("pour se deplacer faire 'ch' au lieu de 'cd'")
     print("pour supprimer un fichier ou un dossier faire 'rm' puis son nom")
+    print("les nom ayant 0o sont des dossiers")
+    print()
     print_file_manager()
+    print()
 
 hall()
 while True:
+    print(direct)
     command = input(command_colors + entry)
 
     if command == "close":

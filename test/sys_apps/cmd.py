@@ -5,16 +5,16 @@ import platform
 
 
 system = platform.system()
-if system=="Windows":
-    clear="cls"
-    directory="dir"
-    ver=("windows version 0.10.1")
-elif system =="Linux":
-    clear ="clear"
-    directory="ls"
-    ver=("linux version 0.10.1")
+if system == "Windows":
+    clear = "cls"
+    directory = "dir"
+    ver = ("windows version 0.10.1")
+elif system == "Linux":
+    clear = "clear"
+    directory = "ls"
+    ver = ("linux version 0.10.1")
 else:
-    clear ="erreur"
+    clear = "erreur"
 
 couleur = Fore.GREEN
 command_colors = Fore.RED
@@ -23,20 +23,20 @@ def hall():
     os.system(clear)
     print(couleur)
     print(ver)
-    print("")
+    print("x-storm software")
 
 
-linux_command=("""
+linux_command = ("""
  ┌─[CMD 0.10.1]─[administrator system]─[~]
  └──╼[★]$>>> """)
-win_command=os.getcwd() + ">>>"
+win_command = os.getcwd() + ">>>"
 
 with open("save_local.txt", "r") as local:
-    locat=local.read()
-    loc=locat.splitlines()
-    cd=loc[0]
+    locat = local.read()
+    loc = locat.splitlines()
+    cd = loc[0]
 
-loc_save =cd + "system\save_config.txt"
+loc_save = cd + "system\save_config.txt"
 
 if os.path.exists(loc_save):
     with open(loc_save, "r") as file:
@@ -57,9 +57,9 @@ else:
 
 hall()
 while True:
-    command=input(command_colors + entry)
+    command = input(command_colors + entry)
 
-    if command =="close":
+    if command == "close":
         os.system(clear)
         break
 
@@ -92,11 +92,23 @@ while True:
             print(f"Changement de répertoire vers : {path}")
             hall()
         except FileNotFoundError:
-            print(f"Le répertoire '{path}' n'existe pas.")
-        except Exception as e:
-            print(f"Erreur lors du changement de répertoire : {e}")
+            print(f"Le répertoire '{path}' n'existe pas")
 
-    elif command == command:
+    elif command.startswith("rm"):
+        hall()
+        _, path = command.split(" ", 1)
+        path = path.strip()
+
+        try:
+            os.remove(path)
+            print(f"{path} supprimé")
+            hall()
+        except FileNotFoundError:
+            print(f"Le fichier '{path}' n'existe pas.")
+        except Exception as e:
+            print(f"Erreur lors de la suppression de {e}")
+
+    else:
         hall()
         print("\n>>> " + command + "\n")
         os.system(command)

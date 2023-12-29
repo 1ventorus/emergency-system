@@ -162,9 +162,7 @@ while True:
         hall()
         password = "invite"
         create_user_directory(user, password)
-        os.chdir(user)
         os.system("python ES.py")
-        os.chdir("..")
         shutil.rmtree(user)
         hall()
 

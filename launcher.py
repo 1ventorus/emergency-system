@@ -162,6 +162,11 @@ while True:
         hall()
         password = "invite"
         create_user_directory(user, password)
+        with open("user.txt", "w+") as data:
+            userdata=user
+
+            data.write(userdata)
+            data.close()
         os.system("python ES.py")
         shutil.rmtree(user)
         hall()

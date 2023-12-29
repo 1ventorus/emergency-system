@@ -36,7 +36,7 @@ local = os.getcwd()
 
 def hall():
     os.system(clear)
-    print(couleur + BANNER)
+    print(couleur + BANNER)        
 
 def create_user_directory(user, password):
     local1 = os.getcwd()
@@ -44,10 +44,6 @@ def create_user_directory(user, password):
 
     if not os.path.exists(user_path):
         os.mkdir(user_path)
-
-        # Copier ES.py dans le répertoire de l'utilisateur
-        shutil.copy(os.path.join(local1, "test", "ES.py"), user_path)
-        print("ES.py copié avec succès.")
 
         # Créer le répertoire sys_apps et copier les fichiers de référence
         sys_apps_path = os.path.join(user_path, "sys_apps")
@@ -71,6 +67,25 @@ def create_user_directory(user, password):
         with open(os.path.join(user_path, "system", "logs.txt"), "w+") as logs:
             logs.write(user + "\n" + password)
         print("Logs.txt créé avec succès.")
+
+def list_users():
+    # Obtenir la liste des éléments dans le répertoire actuel
+    items = os.listdir()
+
+    # Filtrer les dossiers (utilisateurs)
+    users = [item for item in items if os.path.isdir(item)]
+
+    return users
+
+def print_users():
+    print("Utilisateurs disponibles:")
+    users = list_users()
+
+    if not users:
+        print("Aucun utilisateur trouvé.")
+    else:
+        for user in users:
+            print(f"- {user}")
 
 def launch():
     load = 1
@@ -122,14 +137,19 @@ loading()
 print(couleur)
 loading()
 
+hall()
 while True:
     os.chdir(local)
-    hall()
     print("entrez votre nom d'utilisateur ou close pour quitter")
+    print("si l'utilisateur entré n'existe pas il en créera un nouveau")
+    print("pour supprimer un utilisateur faite rm puis son nom")
+    print_users()
+    print("- i : mode invité")
     print()
     user = input(command_colors + ">>>")
     print(couleur)
     os.system(clear)
+    
     if user == "close":
         closing()
         os.system(clear)
@@ -137,14 +157,46 @@ while True:
         time.sleep(2)
         os.system(clear)
         break
+
+    elif user == "invite" or user == "i":
+        hall()
+        password = "invite"
+        create_user_directory(user, password)
+        os.chdir(user)
+        os.system("python ES.py")
+        os.chdir("..")
+        shutil.rmtree(user)
+        hall()
+
+    elif user.startswith("rm"):
+        hall()
+        _, path = user.split(" ", 1)
+        path = path.strip()
+
+        if path=="test":
+            print(Fore.LIGHTRED_EX + "impossible de supprimer un dossier système")
+            print(couleur)
+        else:
+            try:
+                shutil.rmtree(path)
+                print(f"{path} supprimé")
+                hall()
+            except FileNotFoundError:
+                print(f"L'utilisateur '{path}' n'existe pas.")
+            except Exception as e:
+                print(f"Erreur lors de la suppression de {e}")
+
     else:
         hall()
         print("entrez votre mot de passe")
         print()
         password = getpass.getpass(command_colors + ">>>")
         print(couleur)
+        with open("user.txt", "w+") as data:
+            userdata=user
 
+            data.write(userdata)
+            data.close()
         create_user_directory(user, password)
-        os.chdir(user)
         os.system("python ES.py")
         hall()

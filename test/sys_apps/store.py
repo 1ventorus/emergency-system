@@ -1,14 +1,50 @@
+#!/usr/bin/env python
+
 import os
 import ssl
 import socket
+import platform
 import urllib.request
 
-def parentdir():
-    try:
-        parent_directory = os.path.normpath(os.path.join(os.getcwd(), ".."))
-        os.chdir(parent_directory)
-    except Exception as e:
-        print(f"Erreur lors du changement de répertoire : {e}")
+BANNER=("""
+'########::'######::::::'######::'########::'#######::'########::'########:
+ ##.....::'##... ##::::'##... ##:... ##..::'##.... ##: ##.... ##: ##.....::
+ ##::::::: ##:::..::::: ##:::..::::: ##:::: ##:::: ##: ##:::: ##: ##:::::::
+ ######:::. ######:::::. ######::::: ##:::: ##:::: ##: ########:: ######:::
+ ##...:::::..... ##:::::..... ##:::: ##:::: ##:::: ##: ##.. ##::: ##...::::
+ ##:::::::'##::: ##::::'##::: ##:::: ##:::: ##:::: ##: ##::. ##:: ##:::::::
+ ########:. ######:::::. ######::::: ##::::. #######:: ##:::. ##: ########:
+........:::......:::::::......::::::..::::::.......:::..:::::..::........::
+""")
+
+APPS=("""
+  ____>>>ES/apps<<<________________________________________________________
+ |                                    |                                    |
+ | outils :                           | microsoft :                        |
+ |      -toolbox                      |     -                              |
+ |      -                             |     -                              |
+ |      -                             |     -                              |
+ |      -                             |     -                              |
+ |                                    |                                    |
+ | apps :                             | jeux :                             |
+ |      -                             |      -life evol                    |
+ |      -                             |      -nuclear ingenior             |
+ |      -                             |      -                             |
+ |      -                             |      -                             |
+ |      -                             |      -                             |
+ |      -                             |      -                             |
+ |      -                             |      -                             |
+ |      -                             |      -                             |
+ |_________________________________________________________________________|
+""")
+
+system = platform.system()
+if system=="Windows":
+    clear="cls"
+elif system =="Linux":
+    clear ="clear"
+else:
+    clear ="erreur"
 
 def check_internet_connection():
     try:
@@ -21,30 +57,71 @@ def check_internet_connection():
         return False, None
 connected, ssl_version = check_internet_connection()
 
+def hall():
+    os.system(clear)
+    print(BANNER)
+    if connected:
+        print("Le PC est connecté à Internet. 🌐")
+        if ssl_version:
+            print("La connexion est sécurisée avec la version:", ssl_version)
+        else:
+            print("La connexion n'est pas sécurisée. 🌐❌")
+        print(APPS)
+    else:
+        print("Le PC n'est pas connecté à Internet. ❌")
+        print("connectez vous et relancer store")
+
 def fetch_file(url, filename):
     urllib.request.urlretrieve(url, filename)
 
-def maj():
-    parentdir()
-    parentdir()
-    os.remove("launcher.py")
-    os.remove("ES.py")
-    os.remove("ES_setup.py")
-    fetch_file("https://raw.githubusercontent.com/1ventorus/emergency-system/main/launcher.py", "launcher.py")
-    fetch_file("https://raw.githubusercontent.com/1ventorus/emergency-system/main/test/ES.py", "ES.py")
-    fetch_file("https://raw.githubusercontent.com/1ventorus/emergency-system/main/ES_setup.py", "ES_setup.py")
-    os.chdir("test")
-    os.chdir("sys_apps")
-    os.remove("cmd.py")
-    os.remove("store.py")
-    os.remove("file_manager.py")
-    os.remove("maj.py")
-    fetch_file("https://raw.githubusercontent.com/1ventorus/emergency-system/main/test/sys_apps/cmd.py", "cmd.py")
-    fetch_file("https://raw.githubusercontent.com/1ventorus/emergency-system/main/test/sys_apps/store.py", "store.py")
-    fetch_file("https://raw.githubusercontent.com/1ventorus/emergency-system/main/test/sys_apps/file_manager.py", "file_manager.py")
-    fetch_file("https://raw.githubusercontent.com/1ventorus/emergency-system/main/test/sys_apps/maj.py", "maj.py")
+with open("save_local.txt", "r") as local:
+    locat=local.read()
+    loc=locat.splitlines()
+    cd=loc[0]
 
-if connected:
-    maj()
-else:
-    print("vous n'étes pas connecté")
+
+
+hall()
+while True:
+    app=input(">>>")
+
+    if app=="toolbox":
+        os.chdir(cd)
+        hall()
+        if os.path.exists(r"programs\tool\toolbox\toolbox_setup.py"):
+            print("vous possédez déja l'application")
+        else:
+            if connected: 
+                os.chdir(r"programs\tool")   
+                fetch_file("https://raw.githubusercontent.com/1ventorus/toolbox/main/toolbox_setup.py", "toolbox_setup.py")
+            else:
+                print("Le PC n'est pas connecté à Internet. ❌")
+
+    elif app=="life evol":
+        os.chdir(cd)
+        hall()
+        if os.path.exists(r"programs\games\life_evol_setup.py"):
+            print("vous possédez déja l'application")
+        else:
+            if connected: 
+                os.chdir(r"programs\games")       
+                fetch_file("https://raw.githubusercontent.com/1ventorus/life_evol/main/life_evol_setup.py", "life_evol_setup.py")
+            else:
+                print("Le PC n'est pas connecté à Internet. ❌")
+
+    elif app=="nuclear ingenior":
+        os.chdir(cd)
+        hall()
+        if os.path.exists(r"programs\games\nuclear_ingenior_setup.py"):
+            print("vous possédez déja l'application")
+        else:
+            if connected: 
+                os.chdir(r"programs\games")   
+                fetch_file("https://raw.githubusercontent.com/1ventorus/life_evol/main/nuclear_setup.py", "life_evol_setup.py")
+            else:
+                print("Le PC n'est pas connecté à Internet. ❌")
+
+    elif app=="close":
+        break
+
+    

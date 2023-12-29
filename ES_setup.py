@@ -1,5 +1,6 @@
 import os
-import time
+import ssl
+import socket
 import platform
 import urllib.request
 
@@ -42,27 +43,49 @@ Help = ("""
 def fetch_file(url, filename):
     urllib.request.urlretrieve(url, filename)
 
+def check_internet_connection():
+    try:
+        socket.create_connection(("www.google.com", 443))
+        context = ssl.create_default_context()
+        with socket.create_connection(("www.google.com", 443)) as sock:
+            with context.wrap_socket(sock, server_hostname="www.google.com") as ssock:
+                return True, ssock.version()
+    except OSError:
+        return False, None
+connected, ssl_version = check_internet_connection()
+
 def install():
-    locat=os.getcwd()
+    locat = os.getcwd()
+
     fetch_file("https://raw.githubusercontent.com/1ventorus/emergency-system/main/launcher.py", "launcher.py")
-    os.mkdir(os.path.join(locat, "test"))
-    os.chdir("test")
     fetch_file("https://raw.githubusercontent.com/1ventorus/emergency-system/main/test/ES.py", "ES.py")
-    location=os.getcwd()
-    os.mkdir(os.path.join(location, "sys_apps"))
-    os.chdir("sys_apps")
-    fetch_file("https://raw.githubusercontent.com/1ventorus/emergency-system/main/test/sys_apps/cmd.py", "cmd.py")
-    fetch_file("https://raw.githubusercontent.com/1ventorus/emergency-system/main/test/sys_apps/store.py", "store.py")
-    fetch_file("https://raw.githubusercontent.com/1ventorus/emergency-system/main/test/sys_apps/file_manager.py", "file_manager.py")
-    fetch_file("https://raw.githubusercontent.com/1ventorus/emergency-system/main/test/sys_apps/maj.py", "maj.py")
-    os.chdir(location)
-    os.mkdir(os.path.join("system"))
-    os.mkdir(os.path.join("programs"))
-    os.mkdir(os.path.join("programs", "games"))
-    os.mkdir(os.path.join("programs", "tool"))
-    os.chdir(os.path.join("programs", "tool"))
-    fetch_file("https://raw.githubusercontent.com/1ventorus/toolbox/main/toolbox_setup.py", "toolbox_setup.py")
-    os.chdir(locat)
+    os.system("pip install colorama")
+    os.system("pip install psutil")
+    test_dir = os.path.join(locat, "test")
+    if not os.path.exists(test_dir):
+        os.mkdir(test_dir)
+        os.chdir(test_dir)
+        sys_apps_dir = os.path.join(test_dir, "sys_apps")
+        os.mkdir(sys_apps_dir)
+        os.chdir(sys_apps_dir)
+        fetch_file("https://raw.githubusercontent.com/1ventorus/emergency-system/main/test/sys_apps/cmd.py", "cmd.py")
+        fetch_file("https://raw.githubusercontent.com/1ventorus/emergency-system/main/test/sys_apps/store.py", "store.py")
+        fetch_file("https://raw.githubusercontent.com/1ventorus/emergency-system/main/test/sys_apps/file_manager.py", "file_manager.py")
+        fetch_file("https://raw.githubusercontent.com/1ventorus/emergency-system/main/test/sys_apps/maj.py", "maj.py")
+        os.chdir(test_dir)
+        system_dir = os.path.join("system")
+        os.mkdir(system_dir)
+        programs_dir = os.path.join("programs")
+        os.mkdir(programs_dir)
+        games_dir = os.path.join(programs_dir, "games")
+        os.mkdir(games_dir)
+        tool_dir = os.path.join(programs_dir, "tool")
+        os.mkdir(tool_dir)
+        os.chdir(tool_dir)
+        fetch_file("https://raw.githubusercontent.com/1ventorus/toolbox/main/toolbox_setup.py", "toolbox_setup.py")
+        os.chdir(locat)
+        print("installation terminé")
+        print("vous pouvez fermer l'installateur")
 
 
 
@@ -79,7 +102,10 @@ while True:
     if launch=="o" or launch=="y":
         hall()
         if not os.path.exists("test"):
-            install()
+            if connected:
+                install()
+            else:
+                print("vous n'étes pas connecté")
         else:
             print("vous posséder déjà ES")
     elif launch=="n":

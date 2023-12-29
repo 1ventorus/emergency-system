@@ -76,6 +76,7 @@ gen_parameters=("""
  |                                                                         |
  | commande : accede au parametre des commandes                            |
  | info : donne les toute les info de ES                                   |
+ | maj : met à jour ES
  | close : retourne dans ES                                                |
  |_________________________________________________________________________|
  """)
@@ -155,7 +156,7 @@ location=os.getcwd()
 
 # fonction complex
 def save_config():
-    with open("system\save_config.txt", "w+") as fichier:
+    with open(user + r"\system\save_config.txt", "w+") as fichier:
         if entry_com == "win":
             entry_save = "win"
 
@@ -170,7 +171,7 @@ def save_config():
 
 def save_local():
     cd=os.getcwd()
-    with open("sys_apps\save_local.txt", "w+") as local:
+    with open(user + r"\sys_apps\save_local.txt", "w+") as local:
         local.write(cd)
         local.close()
 
@@ -282,8 +283,16 @@ connected, ssl_version = check_internet_connection()
 
 
 # initialisation
-if os.path.exists(r"system\save_config.txt"):
-    with open(r"system\save_config.txt", "r") as file:
+
+with open("user.txt", "r") as datafile:
+    data = datafile.read()
+    usersave = data.splitlines()
+    userdata = usersave[0]
+
+    user=userdata
+
+if os.path.exists(user + r"\system\save_config.txt"):
+    with open(user + r"\system\save_config.txt", "r") as file:
         info = file.read()
         savelist = info.splitlines()
         entry_save = savelist[0]
@@ -345,6 +354,19 @@ while True:
             elif control=="info":
                 General_Parameters()
                 print(couleur + new)
+
+            elif control=="maj":
+                hall()
+                if connected:
+                    local=os.getcwd()
+                    os.chdir(local1)
+                    os.chdir(user + "\sys_apps")
+                    os.system("python maj.py")
+                    os.chdir(local)
+                    hall()
+                    print("mise ajour effectué vous pouvez redémarrer ES")
+                else:
+                    print("vous n'étes pas connecté")
 
         # fermeture des parametre
             elif control=="close":
@@ -508,7 +530,7 @@ while True:
         save_local()
         local=os.getcwd()
         os.chdir(location)
-        os.chdir(r"sys_apps")
+        os.chdir(user + r"\sys_apps")
         os.system("python cmd.py")
         os.chdir(local)
         hall()
@@ -518,7 +540,7 @@ while True:
         save_local()
         local=os.getcwd()
         os.chdir(location)
-        os.chdir(r"sys_apps")
+        os.chdir(user + r"\sys_apps")
         os.system("python file_manager.py")
         os.chdir(local)
         hall()
@@ -527,11 +549,11 @@ while True:
         hall()
         local=os.getcwd()
         os.chdir(location)
-        os.chdir(r"programs\tool\toolbox")
-        if os.path.exists(r"programs\tool\toolbox\toolbox_win.py"):
+        os.chdir(user + r"\programs\tool\toolbox")
+        if os.path.exists(user + r"programs\tool\toolbox\toolbox_win.py"):
             os.system("python toolbox_win.py")
         else:
-            if os.path.exists(r"programs\tool\toolbox\toolbox_setup.py"):
+            if os.path.exists(user + r"\programs\tool\toolbox\toolbox_setup.py"):
                 os.system("python toolbox_setup.py")
             else:
                 print("toolbox n'est pas installé")
@@ -542,11 +564,11 @@ while True:
         hall()
         local=os.getcwd()
         os.chdir(location)
-        os.chdir(r"programs\games")
-        if os.path.exists(r"programs\games\life_evol.py"):
+        os.chdir(user + r"\programs\games")
+        if os.path.exists(user + r"\programs\games\life_evol.py"):
             os.system("python life_evol.py")
         else:
-            if os.path.exists(r"programs\games\life_evol_setup.py"):
+            if os.path.exists(user + r"\programs\games\life_evol_setup.py"):
                 os.system("python life_evol_setup.py")
             else:
                 print("life evol n'est pas installé")
@@ -557,7 +579,7 @@ while True:
         hall()
         local=os.getcwd()
         os.chdir(location)
-        os.chdir(r"programs\games\nuclear_ingenior.py")
+        os.chdir(user + r"\programs\games\nuclear_ingenior.py")
         os.system("python nuclear_ingenior.py")
         os.chdir(local)
         hall()
@@ -567,7 +589,7 @@ while True:
         hall()
         local=os.getcwd()
         os.chdir(location)
-        os.chdir(r"sys_apps")
+        os.chdir(user + r"\sys_apps")
         os.system("python store.py")
         os.chdir(local)
         hall()
@@ -586,8 +608,8 @@ while True:
 
     elif command =="load":
         os.chdir(local1)
-        if os.path.exists(r"system\save_config.txt"):
-            with open(r"system\save_config.txt", "r") as file:
+        if os.path.exists(user + r"\system\save_config.txt"):
+            with open(user + r"system\save_config.txt", "r") as file:
                 info = file.read()
                 savelist = info.splitlines()
                 entry_save = savelist[0]
